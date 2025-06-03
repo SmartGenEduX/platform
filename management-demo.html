@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/demo.html", "dest": "/demo.html" },
+    { "src": "/deploy-demo.html", "dest": "/deploy-demo.html" },
+    { "src": "/management-demo.html", "dest": "/management-demo.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}

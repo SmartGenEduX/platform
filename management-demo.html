@@ -1,14 +1,236 @@
-{
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    { "src": "/demo.html", "dest": "/demo.html" },
-    { "src": "/deploy-demo.html", "dest": "/deploy-demo.html" },
-    { "src": "/management-demo.html", "dest": "/management-demo.html" },
-    { "src": "/", "dest": "/index.html" }
-  ]
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGenEduX - Management Presentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; color: white; }
+        .header { background: rgba(255, 255, 255, 0.1); padding: 2rem 0; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .header h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.5rem; opacity: 0.9; }
+        .msme-badge { background: linear-gradient(45deg, #f59e0b, #d97706); color: white; padding: 1rem 2rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; margin: 2rem auto; display: inline-block; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+        .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; margin-bottom: 4rem; }
+        .overview-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 3rem; text-align: center; border: 1px solid rgba(255,255,255,0.2); }
+        .overview-card h3 { font-size: 2rem; margin-bottom: 1rem; color: #fbbf24; }
+        .overview-card p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .feature-card { background: rgba(255, 255, 255, 0.95); color: #1f2937; border-radius: 15px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .feature-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .feature-icon { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; }
+        .icon-fee { background: linear-gradient(45deg, #10b981, #059669); }
+        .icon-report { background: linear-gradient(45deg, #3b82f6, #1d4ed8); }
+        .icon-substitution { background: linear-gradient(45deg, #8b5cf6, #7c3aed); }
+        .icon-timetable { background: linear-gradient(45deg, #f59e0b, #d97706); }
+        .icon-exam { background: linear-gradient(45deg, #ef4444, #dc2626); }
+        .icon-algorithm { background: linear-gradient(45deg, #6366f1, #4f46e5); }
+        .feature-card h4 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .feature-list { list-style: none; }
+        .feature-list li { padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .feature-list li:before { content: "✓"; color: #10b981; font-weight: bold; }
+        .stats-section { background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 3rem; margin-bottom: 4rem; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .stat-item { padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 15px; }
+        .stat-number { font-size: 3rem; font-weight: bold; color: #fbbf24; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1.1rem; opacity: 0.9; }
+        .revenue-section { background: linear-gradient(45deg, #059669, #10b981); border-radius: 20px; padding: 3rem; margin-bottom: 4rem; text-align: center; }
+        .revenue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .revenue-card { background: rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 2rem; }
+        .revenue-amount { font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .demo-section { text-align: center; margin-bottom: 4rem; }
+        .demo-buttons { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+        .demo-btn { padding: 1.5rem 3rem; background: linear-gradient(45deg, #3b82f6, #1d4ed8); color: white; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .demo-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .demo-btn.secondary { background: linear-gradient(45deg, #10b981, #059669); }
+        .footer { text-align: center; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.2); }
+        @media (max-width: 768px) { .overview-grid, .feature-grid, .stats-grid, .revenue-grid { grid-template-columns: 1fr; } .demo-buttons { flex-direction: column; align-items: center; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1rem;">
+            <img src="SmartGenEduX.jpg" alt="SmartGenEduX" style="width: 80px; height: 80px; border-radius: 15px;">
+            <h1>SmartGenEduX</h1>
+        </div>
+        <p>Complete K-12 School Management Platform</p>
+        <div class="msme-badge">MSME Registered: UDYAM-TN-34-0088173</div>
+    </header>
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-card">
+                <h3>Target Market</h3>
+                <p>20 schools with 5,000 students each, generating consistent monthly revenue through our proven ₹8 per student pricing model with comprehensive automation solutions.</p>
+            </div>
+            <div class="overview-card">
+                <h3>Revenue Projection</h3>
+                <p>₹8 lakh monthly revenue from scalable platform deployment across target schools with algorithm-based automation and AppScript integration.</p>
+            </div>
+            <div class="overview-card">
+                <h3>Competitive Advantage</h3>
+                <p>Honest algorithm-based solutions with proven Google AppScript automation, centralized databases, and real WhatsApp integration without false AI promises.</p>
+            </div>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-fee"><i class="fas fa-rupee-sign"></i></div>
+                    <h4>Fee Management Pro</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>Bank Reconciliation Engine</li>
+                    <li>Tri-party Verification System</li>
+                    <li>Centralized Database Management</li>
+                    <li>Bulk Upload Processing</li>
+                    <li>Smart Dropdown Controls</li>
+                    <li>WhatsApp Integration</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-report"><i class="fas fa-chart-line"></i></div>
+                    <h4>Smart Report Tracker</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>Teacher Marks Upload Interface</li>
+                    <li>Performance Analytics Dashboard</li>
+                    <li>WhatsApp Parent Communication</li>
+                    <li>Excel Template Generation</li>
+                    <li>Grade Calculation Systems</li>
+                    <li>Scheduled Reporting</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-substitution"><i class="fas fa-user-friends"></i></div>
+                    <h4>Smart Substitution Manager</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>Algorithm-based Teacher Matching</li>
+                    <li>Workload Distribution Logic</li>
+                    <li>Intelligent Scoring System</li>
+                    <li>Overload Prevention</li>
+                    <li>Real-time Availability Tracking</li>
+                    <li>PDF Report Generation</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-timetable"><i class="fas fa-calendar-alt"></i></div>
+                    <h4>Advanced Timetable Generator</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>Constraint-based Scheduling</li>
+                    <li>Conflict Detection & Resolution</li>
+                    <li>Resource Optimization</li>
+                    <li>Teacher Workload Balancing</li>
+                    <li>Multiple Format Export</li>
+                    <li>Room Allocation System</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-exam"><i class="fas fa-clipboard-list"></i></div>
+                    <h4>Comprehensive Exam Manager</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>Automated Seating Plans</li>
+                    <li>Invigilation Management</li>
+                    <li>Paper-based Result Processing</li>
+                    <li>Student Distribution System</li>
+                    <li>Hall Management</li>
+                    <li>Performance Analytics</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon icon-algorithm"><i class="fas fa-code"></i></div>
+                    <h4>Advanced Algorithm Generator</h4>
+                </div>
+                <ul class="feature-list">
+                    <li>AppScript-based Automation</li>
+                    <li>Algorithm-driven Processing</li>
+                    <li>Curriculum Integration</li>
+                    <li>Template Generation</li>
+                    <li>Data Pattern Recognition</li>
+                    <li>Custom Logic Implementation</li>
+                </ul>
+            </div>
+        </div>
+        <div class="stats-section">
+            <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Platform Performance Metrics</h3>
+            <p style="font-size: 1.3rem; opacity: 0.9;">Real-world implementation statistics from existing deployments</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1,247</div>
+                    <div class="stat-label">Students Managed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₹8,42,350</div>
+                    <div class="stat-label">Fees Processed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">342</div>
+                    <div class="stat-label">WhatsApp Messages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Reports Generated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Automation Success</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">System Availability</div>
+                </div>
+            </div>
+        </div>
+        <div class="revenue-section">
+            <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Scalable Revenue Model</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Professional pricing structure for sustainable growth</p>
+            <div class="revenue-grid">
+                <div class="revenue-card">
+                    <div class="revenue-amount">₹8</div>
+                    <div>Per Student Monthly</div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem;">Competitive market pricing</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">5,000</div>
+                    <div>Students per School</div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem;">Target capacity per deployment</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">20</div>
+                    <div>Target Schools</div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem;">Initial market penetration</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">₹8L</div>
+                    <div>Monthly Revenue</div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem;">Projected monthly income</div>
+                </div>
+            </div>
+        </div>
+        <div class="demo-section">
+            <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Interactive Demonstrations</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Experience live functionality with real data processing</p>
+            <div class="demo-buttons">
+                <a href="/demo.html" class="demo-btn">
+                    <i class="fas fa-cogs"></i> Technical Demo - Full Features
+                </a>
+                <a href="/deploy-demo.html" class="demo-btn secondary">
+                    <i class="fas fa-desktop"></i> Management Demo - Core Functions
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Ready for Implementation</h3>
+        <p style="font-size: 1.2rem;">Contact us for complete SmartGenEduX deployment in your educational institution</p>
+    </div>
+</body>
+</html>

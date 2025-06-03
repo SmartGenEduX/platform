@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGenEduX Enterprise - MSME Registered School Management Platform</title>
+    <meta name="description" content="Professional K-12 school management platform with WhatsApp integration, fee management, and AI-powered tools. MSME registered UDYAM-TN-34-0088173.">
+    <meta property="og:title" content="SmartGenEduX Enterprise - School Management Platform">
+    <meta property="og:description" content="Transform your school with AI-powered management tools, WhatsApp integration, and enterprise security.">
+    <meta property="og:type" content="website">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f3e8ff 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+            color: white;
+            padding: 24px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .logo {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .logo-text h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .logo-text p {
+            color: #bfdbfe;
+            font-size: 16px;
+        }
+        
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .msme-badge {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #d1fae5;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cta-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .hero h2 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Stats */
+        .stats-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 32px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .stat-blue { color: #3b82f6; }
+        .stat-green { color: #10b981; }
+        .stat-purple { color: #8b5cf6; }
+        .stat-orange { color: #f59e0b; }
+        .stat-emerald { color: #059669; }
+        .stat-indigo { color: #6366f1; }
+        
+        /* Modules Grid */
+        .modules-section {
+            margin: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-header h3 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #6b7280;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+        }
+        
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .module-card.blue { border-color: #dbeafe; }
+        .module-card.green { border-color: #dcfce7; }
+        .module-card.purple { border-color: #f3e8ff; }
+        .module-card.orange { border-color: #fed7aa; }
+        .module-card.emerald { border-color: #d1fae5; }
+        .module-card.indigo { border-color: #e0e7ff; }
+        
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .module-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .module-icon.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .module-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .module-icon.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .module-icon.orange { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .module-icon.emerald { background: linear-gradient(135deg, #10b981, #047857); }
+        .module-icon.indigo { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+        
+        .module-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .module-content p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .module-features {
+            list-style: none;
+        }
+        
+        .module-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        
+        .module-features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        /* Revenue Section */
+        .revenue-section {
+            background: linear-gradient(135deg, #1e3a8a, #581c87);
+            color: white;
+            border-radius: 24px;
+            padding: 64px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .revenue-section h3 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .revenue-section > p {
+            color: #bfdbfe;
+            font-size: 18px;
+            margin-bottom: 48px;
+        }
+        
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .revenue-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .revenue-item i {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .revenue-item h4 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .revenue-item p {
+            color: #bfdbfe;
+        }
+        
+        .revenue-highlight {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .revenue-highlight h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .revenue-highlight p {
+            color: #bfdbfe;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(135deg, #059669, #2563eb);
+            color: white;
+            border-radius: 24px;
+            padding: 64px;
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .contact-cta h3 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .contact-cta > p {
+            font-size: 20px;
+            color: #bfdbfe;
+            margin-bottom: 48px;
+        }
+        
+        .contact-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .contact-feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .msme-registered {
+            color: #10b981;
+            font-weight: 700;
+        }
+        
+        .demo-button {
+            background: white;
+            color: #2563eb;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container,
+            .revenue-section,
+            .contact-cta {
+                padding: 32px 20px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">SG</div>
+                    <div class="logo-text">
+                        <h1>SmartGenEduX Enterprise</h1>
+                        <p>MSME Registered School Management Platform</p>
+                    </div>
+                </div>
+                <div class="header-badges">
+                    <div class="msme-badge">
+                        <i class="fas fa-certificate"></i>
+                        UDYAM-TN-34-0088173
+                    </div>
+                    <a href="#demo" class="cta-button">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Transform Your School Into a <span class="gradient-text">Digital Powerhouse</span></h2>
+            <p>Complete K-12 management solution with AI-powered automation, WhatsApp Business integration, and enterprise-grade security for modern educational institutions.</p>
+            
+            <!-- Stats -->
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number stat-blue">20</div>
+                        <div class="stat-label">Partner Schools</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number stat-green">100K+</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number stat-purple">5K+</div>
+                        <div class="stat-label">Teachers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number stat-orange">₹8L</div>
+                        <div class="stat-label">Monthly Revenue</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number stat-emerald">94.2%</div>
+                        <div class="stat-label">Attendance</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number stat-indigo">98.5%</div>
+                        <div class="stat-label">Efficiency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modules Section -->
+    <section class="modules-section">
+        <div class="container">
+            <div class="section-header">
+                <h3>Comprehensive Module Suite</h3>
+                <p>Six powerful modules designed to streamline every aspect of school management</p>
+            </div>
+            
+            <div class="modules-grid">
+                <!-- Report Tracker -->
+                <div class="module-card blue">
+                    <div class="module-header">
+                        <div class="module-icon blue">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>Smart Report Tracker</h4>
+                            <p>AI-powered analytics with automated report generation and real-time parent communication via WhatsApp</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>Real-time Analytics Dashboard</li>
+                        <li>Automated WhatsApp Reports</li>
+                        <li>Performance Tracking</li>
+                        <li>Parent Portal Integration</li>
+                    </ul>
+                </div>
+                <!-- Fee Management -->
+                <div class="module-card green">
+                    <div class="module-header">
+                        <div class="module-icon green">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>Fee Management Pro</h4>
+                            <p>Complete fee collection system with digital payments, automated reminders, and financial reporting</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>Digital Payment Gateway</li>
+                        <li>Automated Fee Reminders</li>
+                        <li>Receipt Generation</li>
+                        <li>Financial Analytics</li>
+                    </ul>
+                </div>
+                <!-- Substitution Manager -->
+                <div class="module-card purple">
+                    <div class="module-header">
+                        <div class="module-icon purple">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>Smart Substitution Manager</h4>
+                            <p>AI-powered teacher allocation system with intelligent workload balancing and leave management</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>Intelligent Teacher Matching</li>
+                        <li>Workload Optimization</li>
+                        <li>Leave Request Automation</li>
+                        <li>Real-time Notifications</li>
+                    </ul>
+                </div>
+                <!-- Timetable Generator -->
+                <div class="module-card orange">
+                    <div class="module-header">
+                        <div class="module-icon orange">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>Advanced Timetable Generator</h4>
+                            <p>Constraint-based scheduling with conflict resolution and resource optimization for efficient planning</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>Automated Schedule Generation</li>
+                        <li>Conflict Detection & Resolution</li>
+                        <li>Resource Optimization</li>
+                        <li>Multiple Format Export</li>
+                    </ul>
+                </div>
+                <!-- Exam Management -->
+                <div class="module-card emerald">
+                    <div class="module-header">
+                        <div class="module-icon emerald">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>Comprehensive Exam Manager</h4>
+                            <p>End-to-end examination system with seating arrangements, invigilation scheduling, and result processing</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>Automated Seating Plans</li>
+                        <li>Invigilation Management</li>
+                        <li>Digital Answer Sheets</li>
+                        <li>Result Analytics</li>
+                    </ul>
+                </div>
+                <!-- Question Paper Generator -->
+                <div class="module-card indigo">
+                    <div class="module-header">
+                        <div class="module-icon indigo">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="module-content">
+                            <h4>AI Question Paper Generator</h4>
+                            <p>OpenAI-powered question generation with curriculum alignment and difficulty level customization</p>
+                        </div>
+                    </div>
+                    <ul class="module-features">
+                        <li>AI-Powered Question Creation</li>
+                        <li>Curriculum Alignment</li>
+                        <li>Difficulty Level Control</li>
+                        <li>Multiple Format Support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Revenue Model -->
+    <section class="revenue-section">
+        <div class="container">
+            <h3>Scalable Revenue Model</h3>
+            <p>Professional pricing structure designed for sustainable growth and maximum ROI</p>
+            
+            <div class="revenue-grid">
+                <div class="revenue-item">
+                    <i class="fas fa-school"></i>
+                    <h4>20 Schools</h4>
+                    <p>Target Partner Network</p>
+                </div>
+                <div class="revenue-item">
+                    <i class="fas fa-users"></i>
+                    <h4>5,000</h4>
+                    <p>Students per School</p>
+                </div>
+                <div class="revenue-item">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h4>₹8</h4>
+                    <p>Per Student/Month</p>
+                </div>
+                <div class="revenue-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>₹8 Lakh</h4>
+                    <p>Monthly Revenue</p>
+                </div>
+            </div>
+            
+            <div class="revenue-highlight">
+                <h4>Enterprise Growth Strategy</h4>
+                <p>Targeting ₹96 Lakh annual revenue through strategic partnerships with K-12 institutions across Tamil Nadu</p>
+            </div>
+        </div>
+    </section>
+    <!-- Contact CTA -->
+    <section class="contact-cta" id="demo">
+        <div class="container">
+            <h3>Ready to Transform Your School?</h3>
+            <p>Join leading educational institutions already using SmartGenEduX for digital transformation</p>
+            
+            <div class="contact-features">
+                <div class="contact-feature">
+                    <i class="fas fa-certificate"></i>
+                    <span class="msme-registered">MSME Registered</span>
+                </div>
+                <div class="contact-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Enterprise Security</span>
+                </div>
+                <div class="contact-feature">
+                    <i class="fas fa-headset"></i>
+                    <span>24/7 Support</span>
+                </div>
+                <div class="contact-feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>WhatsApp Integration</span>
+                </div>
+            </div>
+            
+            <a href="mailto:contact@smartgenedux.com" class="demo-button">
+                <i class="fas fa-calendar-check"></i>
+                Schedule Demo Today
+            </a>
+        </div>
+    </section>
+</body>
+</html>

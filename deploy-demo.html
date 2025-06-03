@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGenEduX - Management Demo Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .header { background: rgba(255, 255, 255, 0.95); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        .logo h1 { color: #4f46e5; font-size: 1.8rem; font-weight: 700; }
+        .msme-badge { background: linear-gradient(45deg, #f59e0b, #d97706); color: white; padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .demo-header { text-align: center; margin-bottom: 3rem; color: white; }
+        .demo-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .demo-header p { font-size: 1.2rem; opacity: 0.9; }
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .module-demo { background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
+        .module-demo:hover { transform: translateY(-5px); }
+        .module-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #f1f5f9; }
+        .module-icon { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; }
+        .fee-icon { background: linear-gradient(45deg, #10b981, #059669); }
+        .report-icon { background: linear-gradient(45deg, #3b82f6, #1d4ed8); }
+        .module-title { flex: 1; }
+        .module-title h3 { font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem; }
+        .module-title p { color: #6b7280; font-size: 0.9rem; }
+        .form-section { margin-bottom: 2rem; }
+        .section-title { font-size: 1.1rem; font-weight: 600; color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-size: 0.9rem; font-weight: 500; color: #374151; margin-bottom: 0.3rem; }
+        .form-group input, .form-group select { padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s ease; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        .btn { padding: 0.75rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: linear-gradient(45deg, #4f46e5, #7c3aed); color: white; }
+        .btn-success { background: linear-gradient(45deg, #10b981, #059669); color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 1rem; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .data-table th { background: #f8fafc; padding: 1rem; text-align: left; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb; }
+        .data-table td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
+        .data-table tr:hover { background: #f8fafc; }
+        .status-badge { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .status-paid { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-overdue { background: #fee2e2; color: #991b1b; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: linear-gradient(45deg, #f8fafc, #e2e8f0); padding: 1.5rem; border-radius: 12px; text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #1f2937; }
+        .stat-label { font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem; }
+        .bulk-upload { background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 2px dashed #d1d5db; text-align: center; margin-bottom: 2rem; }
+        .upload-icon { font-size: 3rem; color: #9ca3af; margin-bottom: 1rem; }
+        .footer-demo { text-align: center; padding: 2rem; color: white; margin-top: 3rem; }
+        @media (max-width: 768px) { .modules-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div>
+                    <h1>SmartGenEduX</h1>
+                    <div style="font-size: 0.8rem; color: #6b7280;">Management Demo Platform</div>
+                </div>
+            </div>
+            <div class="msme-badge">MSME Registered: UDYAM-TN-34-0088173</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="demo-header">
+            <h2><i class="fas fa-desktop"></i> Live Module Demonstrations</h2>
+            <p>Experience real SmartGenEduX functionality with live data processing</p>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-demo">
+                <div class="module-header">
+                    <div class="module-icon fee-icon"><i class="fas fa-rupee-sign"></i></div>
+                    <div class="module-title">
+                        <h3>Fee Management Pro</h3>
+                        <p>Bank reconciliation, tri-party verification, WhatsApp integration</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalStudents">1,247</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="collectedFees">₹8,42,350</div>
+                        <div class="stat-label">Fees Collected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingFees">₹1,23,450</div>
+                        <div class="stat-label">Pending Amount</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title"><i class="fas fa-university"></i> Bank Reconciliation Engine</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Bank Statement</label>
+                            <input type="file" id="bankStatement" accept=".pdf,.csv,.xlsx">
+                        </div>
+                        <div class="form-group">
+                            <label>UTR Reference</label>
+                            <input type="text" id="bankReference" placeholder="UTR/Transaction ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₹)</label>
+                            <input type="number" id="bankAmount" placeholder="Bank amount">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="reconcilePayment()">
+                        <i class="fas fa-check-double"></i> Run Reconciliation
+                    </button>
+                    <button class="btn btn-primary" onclick="triPartyVerify()" style="margin-left: 1rem;">
+                        <i class="fas fa-shield-alt"></i> Tri-Party Verification
+                    </button>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title"><i class="fab fa-whatsapp"></i> WhatsApp Fee Management</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Parent Mobile</label>
+                            <input type="tel" id="parentMobile" placeholder="+91-9876543210">
+                        </div>
+                        <div class="form-group">
+                            <label>Message Type</label>
+                            <select id="messageType">
+                                <option value="reminder">Fee Reminder</option>
+                                <option value="receipt">Payment Receipt</option>
+                                <option value="overdue">Overdue Notice</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₹)</label>
+                            <input type="number" id="dueAmount" placeholder="Amount">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="sendWhatsAppFee()">
+                        <i class="fab fa-whatsapp"></i> Send WhatsApp Message
+                    </button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Student</th><th>Category</th><th>Amount</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="feeTableBody">
+                        <tr>
+                            <td>Rahul Kumar - 10A</td>
+                            <td>Tuition Fee</td>
+                            <td>₹5,500</td>
+                            <td><span class="status-badge status-paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>Priya Sharma - 9B</td>
+                            <td>Transport Fee</td>
+                            <td>₹2,200</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="module-demo">
+                <div class="module-header">
+                    <div class="module-icon report-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="module-title">
+                        <h3>Smart Report Tracker</h3>
+                        <p>Teacher marks upload, analytics, WhatsApp parent communication</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalReports">156</div>
+                        <div class="stat-label">Reports Generated</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgScore">78.5%</div>
+                        <div class="stat-label">Average Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="whatsappSent">342</div>
+                        <div class="stat-label">WhatsApp Sent</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title"><i class="fas fa-chalkboard-teacher"></i> Teacher Marks Upload</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Teacher</label>
+                            <select id="teacherSelect">
+                                <option value="">Select Teacher</option>
+                                <option value="rajesh">Dr. Rajesh Kumar - Mathematics</option>
+                                <option value="priya">Mrs. Priya Singh - Science</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Class & Section</label>
+                            <select id="classSection">
+                                <option value="">Select Class</option>
+                                <option value="10a">Class 10-A (35 students)</option>
+                                <option value="9b">Class 9-B (40 students)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Exam Type</label>
+                            <select id="examType">
+                                <option value="">Select Exam</option>
+                                <option value="unit1">Unit Test 1</option>
+                                <option value="half">Half Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="openMarksEntry()">
+                        <i class="fas fa-edit"></i> Open Marks Entry
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadTemplate()" style="margin-left: 1rem;">
+                        <i class="fas fa-download"></i> Download Template
+                    </button>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title"><i class="fab fa-whatsapp"></i> WhatsApp Parent Reports</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Parent Contact</label>
+                            <input type="tel" id="parentContact" placeholder="+91-9876543210">
+                        </div>
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select id="reportType">
+                                <option value="progress">Monthly Progress</option>
+                                <option value="performance">Performance Analysis</option>
+                                <option value="attendance">Attendance Report</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            <input type="text" id="studentName" placeholder="Student name">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="sendParentReport()">
+                        <i class="fab fa-whatsapp"></i> Send Report
+                    </button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Student</th><th>Subject</th><th>Marks</th><th>Grade</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rahul Kumar - 10A</td>
+                            <td>Mathematics</td>
+                            <td>85/100</td>
+                            <td><span class="status-badge status-paid">A+</span></td>
+                        </tr>
+                        <tr>
+                            <td>Priya Sharma - 9B</td>
+                            <td>Science</td>
+                            <td>72/100</td>
+                            <td><span class="status-badge status-pending">B+</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-demo">
+        <h3><i class="fas fa-rocket"></i> Ready for Implementation</h3>
+        <p>Contact us for complete SmartGenEduX deployment</p>
+    </div>
+
+    <script>
+        function reconcilePayment() {
+            const reference = document.getElementById('bankReference').value;
+            const amount = document.getElementById('bankAmount').value;
+            if (!reference || !amount) {
+                alert('Please fill reconciliation fields');
+                return;
+            }
+            alert('Bank Reconciliation Complete\n\nUTR: ' + reference + '\nAmount: ₹' + amount + '\nStatus: VERIFIED\nStudent: Rahul Kumar\nPayment Confirmed');
+            const current = parseInt(document.getElementById('collectedFees').textContent.replace(/[₹,]/g, ''));
+            document.getElementById('collectedFees').textContent = '₹' + (current + parseInt(amount)).toLocaleString();
+        }
+
+        function triPartyVerify() {
+            alert('Tri-Party Verification System\n\nSchool System: SmartGenEduX ✓\nBank Gateway: HDFC Bank ✓\nPayment App: PhonePe ✓\n\nVerification: SUCCESSFUL\nAll three parties confirmed transaction authenticity');
+        }
+
+        function sendWhatsAppFee() {
+            const mobile = document.getElementById('parentMobile').value;
+            const type = document.getElementById('messageType').value;
+            const amount = document.getElementById('dueAmount').value;
+            if (!mobile || !amount) {
+                alert('Please fill required fields');
+                return;
+            }
+            const messages = {
+                reminder: 'Fee Reminder\n\nDear Parent,\nFee of ₹' + amount + ' is due.\nKindly pay at earliest.\n\n- SmartGenEduX',
+                receipt: 'Payment Receipt\n\nDear Parent,\nPayment of ₹' + amount + ' received.\nThank you.\n\n- SmartGenEduX',
+                overdue: 'Overdue Notice\n\nDear Parent,\nFee of ₹' + amount + ' is overdue.\nPlease pay immediately.\n\n- SmartGenEduX'
+            };
+            alert('WhatsApp Message Sent\n\nTo: ' + mobile + '\nType: ' + type + '\n\nMessage:\n' + messages[type] + '\n\nStatus: Delivered');
+        }
+
+        function openMarksEntry() {
+            const teacher = document.getElementById('teacherSelect').value;
+            const classSection = document.getElementById('classSection').value;
+            const examType = document.getElementById('examType').value;
+            if (!teacher || !classSection || !examType) {
+                alert('Please select all fields');
+                return;
+            }
+            alert('Opening Marks Entry Sheet\n\nTeacher: ' + document.getElementById('teacherSelect').options[document.getElementById('teacherSelect').selectedIndex].text + '\nClass: ' + document.getElementById('classSection').options[document.getElementById('classSection').selectedIndex].text + '\nExam: ' + document.getElementById('examType').options[document.getElementById('examType').selectedIndex].text + '\n\nDigital sheet ready for mark entry');
+        }
+
+        function downloadTemplate() {
+            alert('Excel Template Downloaded\n\nFile: Mathematics_Class10A_Template.xlsx\n\nContents:\n• Student roster\n• Mark entry columns\n• Grade calculations\n• Validation rules\n\nReady for teacher use');
+        }
+
+        function sendParentReport() {
+            const contact = document.getElementById('parentContact').value;
+            const reportType = document.getElementById('reportType').value;
+            const studentName = document.getElementById('studentName').value;
+            if (!contact || !studentName) {
+                alert('Please fill required fields');
+                return;
+            }
+            const reports = {
+                progress: 'Monthly Progress Report\n\n' + studentName + ' Performance:\nOverall: 85%\nRank: 5/35\nStrong: Math, Science\nImprove: English\n\n- SmartGenEduX',
+                performance: 'Performance Analysis\n\n' + studentName + ' Analytics:\nTest Scores: Improving\nAttendance: 95%\nBehavior: Excellent\nRecommendations attached\n\n- SmartGenEduX',
+                attendance: 'Attendance Report\n\n' + studentName + ' Attendance:\nThis Month: 20/22 days\nPercentage: 91%\nStatus: Good\nMissed: 2 days\n\n- SmartGenEduX'
+            };
+            alert('WhatsApp Report Sent\n\nTo: ' + contact + '\nStudent: ' + studentName + '\n\nReport:\n' + reports[reportType] + '\n\nStatus: Delivered');
+            const current = parseInt(document.getElementById('whatsappSent').textContent);
+            document.getElementById('whatsappSent').textContent = current + 1;
+        }
+    </script>
+</body>
+</html>
